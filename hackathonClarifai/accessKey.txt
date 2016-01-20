@@ -1,0 +1,3 @@
+Access Token: JD454LvSeuRLg7ZurAZgmTKP7sST2i
+Client Id: doE72Z28rOEYtDCLvbALsMOJtY7Uakll7U0MhvAj
+Client Secret: MTZPRyu9mkOpPU4pPRWIKqw2FBMxCOrFWk-Ewwtt

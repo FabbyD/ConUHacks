@@ -33,6 +33,12 @@ function onPlaceChanged() {
     map.panTo(place.geometry.location);
     map.setZoom(12);
 	marker.setPosition(place.geometry.location);
+	
+	// Smooth scrolling
+	var offsets = document.getElementById('portfolio').getBoundingClientRect();
+	var top = offsets.top;
+	$('html, body').stop().animate({ scrollTop: top },500);
+			
   } else {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }

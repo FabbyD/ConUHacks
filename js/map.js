@@ -32,7 +32,7 @@ function onPlaceChanged() {
   if (place.geometry) {
     map.panTo(place.geometry.location);
     map.setZoom(12);
-    search();
+	marker.setPosition(place.geometry.location);
   } else {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }

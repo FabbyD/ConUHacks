@@ -237,3 +237,10 @@ hr.small {
 footer {
     padding: 100px 0;
 }
+
+#flightDate{
+	font-color: black;
+}
+#flightSubmit{
+	font-color: black;
+}

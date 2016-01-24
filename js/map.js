@@ -2,10 +2,8 @@
  $(document).ready(function() {
 	var input = document.getElementById('placeInput');
 	autocomplete = new google.maps.places.Autocomplete(input); 
-	
 	autocomplete.addListener('place_changed', onPlaceChanged);
-	
-	});
+});
  
 var map;
 var marker;

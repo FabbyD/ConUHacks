@@ -49,8 +49,6 @@ function onPlaceChanged() {
 	$("#photosCheck").attr("checked",true);
 	$("#weather").show();
 	$("#weatherCheck").attr("checked",true);
-	$("#contact").show();
-	$("#mapCheck").attr("checked",true);
 	$("#travel").show();
 	$("#travelCheck").attr("checked",true);
 	$("#about").show();

@@ -63,6 +63,9 @@ function onPlaceChanged() {
 	console.log(location.lat(), location.lng())
 	postRequest(callback, location.lat(), location.lng());
 	
+	// Travel information
+	postRequestSita(sitaCallback, location.lat(), location.lng());
+	
   } else {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }
@@ -163,3 +166,71 @@ function postRequest(callbackFct, lat, lon)
 	  	}
 	});
 }
+
+// Call the SITA API
+function postRequestSita(callbackFct, lat, lon)
+{
+	$.ajax({
+	  	url: 'https://airport.api.aero/airport/nearest/' + lat + '/' + lon + '?maxAirports=1&user_key=1e4c64c11c940df94c374eb7d70fcef3',
+		
+		dataType: 'jsonp',
+		
+	  	success: function(response) {
+	  		callbackFct(response);
+	  	},
+
+	  	error: function(){
+	  		console.log("Errrreur")
+	  	}
+	});
+}
+
+// Change airports codes when the fetch is complete
+function sitaCallback(result)
+{
+	document.querySelector('#destCode').innerHTML = result.airports[0].code;
+	console.log(result.airports[0].code);
+	postRequestQpx(qpxCallback, "AAA", "AAA");
+	
+}
+
+// Call the QPX API
+function postRequestQpx(callbackFct, startCode, destCode)
+{
+	
+	var str = '{"request": {"passengers": {"adultCount": 1},"slice": [{"origin": "BOS","destination": "LAX","date": "2016-01-30"}]}}';
+	var json = JSON.parse(str);
+	
+	json.request.slice[0].origin = "YUL";
+	json.request.slice[0].destination = document.querySelector('#destCode').innerHTML;
+	
+	$.ajax({
+	  	type: 'POST',
+	  	
+	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyDmMsdhLSm9L31s9RFyaosTNtDnOWnYqH0',
+		
+		contentType: "application/json",
+
+	  	dataType: "json",
+
+	  	data: JSON.stringify(json),
+
+	  	success: function(response) {
+	  		callbackFct(response);
+			console.log(json);
+	  	},
+
+	  	error: function(response){
+	  		console.log("QPX Error");
+	  	}
+	});
+}
+
+// QPX callback
+function qpxCallback(result)
+{
+	console.log(result);
+	document.querySelector('#flightPrice').innerHTML = result.trips.tripOption[0].saleTotal;
+	document.querySelector('#flightDuration').innerHTML = result.trips.tripOption[0].slice[0].duration + " mins";
+}
+

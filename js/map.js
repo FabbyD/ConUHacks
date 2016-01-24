@@ -230,5 +230,7 @@ function qpxCallback(result)
 	console.log(result);
 	document.querySelector('#flightPrice').innerHTML = result.trips.tripOption[0].saleTotal;
 	document.querySelector('#flightDuration').innerHTML = result.trips.tripOption[0].slice[0].duration + " mins";
+	document.querySelector('#flightCarrier').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.carrier;
+	document.querySelector('#flightNo').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.number;
 }
 

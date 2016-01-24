@@ -1,9 +1,7 @@
 
  $(document).ready(function() {
 	var input = document.getElementById('placeInput');
-	autocomplete = new google.maps.places.Autocomplete(input, {
-		types: ['(cities)']
-	}); 
+	autocomplete = new google.maps.places.Autocomplete(input); 
 	
 	autocomplete.addListener('place_changed', onPlaceChanged);
 	
@@ -118,12 +116,10 @@ function callbackDetails(place, status) {
 			return;
 		}
 		
-		$('#photoTest').attr('src',photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100}));
-		
-		//var x = document.querySelectorAll(".photo");
-		//for (i = 0; i < 6; i++) {
-		//	x[i].setAttribute('src',"photos[i].getUrl({'maxWidth': 100, 'maxHeight': 100})");
-		//}
+		var x = document.querySelectorAll(".photo");
+		for (i = 0; i < 6; i++) {
+			x[i].setAttribute('src',photos[i].getUrl({'maxWidth': 300, 'maxHeight': 300}));
+		}
 	  }
 }
 

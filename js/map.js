@@ -110,13 +110,17 @@ function callbackDetails(place, status) {
 		console.log(place);
 		var photos = place.photos;
 		if (!photos) {
+			console.log("No photos available");
 			// NO PHOTOS AVAILABLE
 			return;
 		}
-		$('#pictures').attr("src","");
-		for (i = 0; i < 4; i++) {
-			$('ul').append('<li><img src="'+photos[i].getUrl({'maxWidth': 400, 'maxHeight': 400})+'"></li>');
-		}
+		
+		$('#photoTest').attr('src',photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100}));
+		
+		//var x = document.querySelectorAll(".photo");
+		//for (i = 0; i < 6; i++) {
+		//	x[i].setAttribute('src',"photos[i].getUrl({'maxWidth': 100, 'maxHeight': 100})");
+		//}
 	  }
 }
 
@@ -229,5 +233,7 @@ function qpxCallback(result)
 	console.log(result);
 	document.querySelector('#flightPrice').innerHTML = result.trips.tripOption[0].saleTotal;
 	document.querySelector('#flightDuration').innerHTML = result.trips.tripOption[0].slice[0].duration + " mins";
+	document.querySelector('#flightCarrier').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.carrier;
+	document.querySelector('#flightNo').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.number;
 }
 

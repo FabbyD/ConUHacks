@@ -27,8 +27,12 @@ function initMap() {
 			console.log("ici3");
 			position.lat = temp.lat;
 			position.lng = temp.lng;
+			showMarker();
 		});
 			console.log("ici4");
+	}
+	else{
+		
 	}
     map = new google.maps.Map(document.getElementById('contact'), {
         center: position,
@@ -37,14 +41,16 @@ function initMap() {
     });
 	directionsDisplay.setMap(map);
 	
-    marker = new google.maps.Marker({
+}
+
+function showMarker(){
+	marker = new google.maps.Marker({
         position: position,
         map: map
     });
 	console.log(position);
     marker.setVisible(true);
 }
-
 function onPlaceChanged() {
   place = autocomplete.getPlace();
   if (place.geometry) {

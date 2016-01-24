@@ -62,55 +62,55 @@ function showMarker(){
     marker.setVisible(true);
 }
 function onPlaceChanged() {
-  place = autocomplete.getPlace();
-  
-  // Place photos
-  var request = {
+	place = autocomplete.getPlace();
+
+	// Place photos
+	var request = {
 		location: place.geometry.location,
 		radius: '500',
 		query: place.name
-	  };
-	  
+	};
+
 	var service = new google.maps.places.PlacesService(map);
 	service.textSearch(request, callbackPlacesID);
-	
-  if (place.geometry) {
-	$("#pictures").show();
-	$("#photosCheck").attr("checked",true);
-	$("#weather").show();
-	$("#weatherCheck").attr("checked",true);
-	$("#travel").show();
-	$("#travelCheck").attr("checked",true);
-	$("#about").show();
-	$("footer").show();
-	$("#contact").show();
-	$("#mapCheck").attr("checked",true);
-	initMap();
-	
-	
-    map.panTo(place.geometry.location);
-    map.setZoom(12);
-	temporaryInfo();
-	
-	
-	
-	// Weather forecast
-	var location = place.geometry.location;
-	console.log(location.lat(), location.lng())
-	postRequest(callback, location.lat(), location.lng());
-	
-	// Travel information
-	postRequestSita(sitaCallback, location.lat(), location.lng());
-	
-	// Smooth scrolling
-	var offsets = document.getElementById('pictures').getBoundingClientRect();
-	var top = offsets.top;
-	$('html, body').stop().animate({ scrollTop: top },500);
+
+	if (place.geometry) {
+		$("#pictures").show();
+		$("#photosCheck").attr("checked",true);
+		$("#weather").show();
+		$("#weatherCheck").attr("checked",true);
+		$("#travel").show();
+		$("#travelCheck").attr("checked",true);
+		$("#about").show();
+		$("footer").show();
+		$("#contact").show();
+		$("#mapCheck").attr("checked",true);
+		initMap();
+
+
+		map.panTo(place.geometry.location);
+		map.setZoom(12);
+		temporaryInfo();
+
+
+
+		// Weather forecast
+		var location = place.geometry.location;
+		console.log(location.lat(), location.lng())
+		postRequest(callback, location.lat(), location.lng());
+
+		// Travel information
+		postRequestSita(sitaCallback, location.lat(), location.lng());
+
+		// Smooth scroll down
+		var offsets = document.getElementById('pictures').getBoundingClientRect();
+		var top = offsets.top;
+		$('html, body').stop().animate({ scrollTop: top },500);
 	}
 	else {
-    document.getElementById('autocomplete').placeholder = 'Enter your destination';
-  }
-  determineRoute(directionsService, directionsDisplay);
+		document.getElementById('autocomplete').placeholder = 'Enter your destination';
+	}
+	determineRoute(directionsService, directionsDisplay);
 }
 
 
@@ -140,7 +140,7 @@ function callbackPlacesID(results, status) {
 }
 
 function callbackDetails(place, status) {
-	 if (status == google.maps.places.PlacesServiceStatus.OK) {
+	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		console.log(place);
 		var photos = place.photos;
 		
@@ -163,7 +163,7 @@ function callbackDetails(place, status) {
 				return;
 			}
 		}
-	  }
+	}
 }
 
 // Change the weather values when the fetch is complete

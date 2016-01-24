@@ -41,7 +41,7 @@ function postRequest(callbackFct)
 	  },
 
 	  	success: function(response) {
-	  		callback(response);
+	  		callbackFct(response);
 	  	},
 
 	  	error: function(){
@@ -49,7 +49,5 @@ function postRequest(callbackFct)
 	  	}
 	});
 }
-
-
 
 postRequest(callback);

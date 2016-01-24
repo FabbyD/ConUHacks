@@ -3,6 +3,18 @@
 	var input = document.getElementById('placeInput');
 	autocomplete = new google.maps.places.Autocomplete(input); 
 	autocomplete.addListener('place_changed', onPlaceChanged);
+	
+	// Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
 });
  
 var map;
@@ -229,7 +241,7 @@ function postRequestQpx(callbackFct, startCode, destCode)
 	$.ajax({
 	  	type: 'POST',
 	  	
-	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyA1rgCGVQtLfQMPVmpzyOAf9E-8E3ilmJM',
+	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=', // AIzaSyA1rgCGVQtLfQMPVmpzyOAf9E-8E3ilmJM
 		
 		contentType: "application/json",
 

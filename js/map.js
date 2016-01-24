@@ -15,6 +15,13 @@
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
+	
+	// Bottom smooth scroll button
+	var offsets = document.getElementById('top').getBoundingClientRect();
+	var top = offsets.top;
+	$( "#scrollUp" ).click(function() {
+		$('html, body').stop().animate({ scrollTop: top },500);
+	});
 });
  
 var map;
@@ -56,6 +63,17 @@ function showMarker(){
 }
 function onPlaceChanged() {
   place = autocomplete.getPlace();
+  
+  // Place photos
+  var request = {
+		location: place.geometry.location,
+		radius: '500',
+		query: place.name
+	  };
+	  
+	var service = new google.maps.places.PlacesService(map);
+	service.textSearch(request, callbackPlacesID);
+	
   if (place.geometry) {
 	$("#pictures").show();
 	$("#photosCheck").attr("checked",true);
@@ -74,10 +92,7 @@ function onPlaceChanged() {
     map.setZoom(12);
 	temporaryInfo();
 	
-	// Smooth scrolling
-	var offsets = document.getElementById('pictures').getBoundingClientRect();
-	var top = offsets.top;
-	$('html, body').stop().animate({ scrollTop: top },500);
+	
 	
 	// Weather forecast
 	var location = place.geometry.location;
@@ -87,20 +102,15 @@ function onPlaceChanged() {
 	// Travel information
 	postRequestSita(sitaCallback, location.lat(), location.lng());
 	
-  } else {
+	// Smooth scrolling
+	var offsets = document.getElementById('pictures').getBoundingClientRect();
+	var top = offsets.top;
+	$('html, body').stop().animate({ scrollTop: top },500);
+	}
+	else {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }
   determineRoute(directionsService, directionsDisplay);
-  
-  // Place photos
-  var request = {
-		location: place.geometry.location,
-		radius: '500',
-		query: place.name
-	  };
-	  
-	var service = new google.maps.places.PlacesService(map);
-	service.textSearch(request, callbackPlacesID);
 }
 
 
@@ -284,10 +294,10 @@ function qpxCallback(result)
 function temporaryInfo()
 {
 	$('#instaTitle').html(place.name);
-	document.querySelector('#startCode').innerHTML = "fetching...";
-	document.querySelector('#destCode').innerHTML = "fetching...";
-	document.querySelector('#flightPrice').innerHTML = "fetching...";
-	document.querySelector('#flightDuration').innerHTML = "fetching...";
-	document.querySelector('#flightCarrier').innerHTML = "fetching...";
-	document.querySelector('#flightNo').innerHTML = "fetching...";
+	document.querySelector('#startCode').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+	document.querySelector('#destCode').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+	document.querySelector('#flightPrice').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+	document.querySelector('#flightDuration').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+	document.querySelector('#flightCarrier').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+	document.querySelector('#flightNo').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';;
 }

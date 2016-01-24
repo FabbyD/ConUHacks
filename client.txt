@@ -1,1 +1,5 @@
 2739012414.d3eb5b7.c6aaf652d65d4b3e838c233deace95a7
+
+https://instagram.com/oauth/authorize/?client_id=d3eb5b70c04b4356a146d2cf73988aff&redirect_uri=http://localhost&scope=public_content&response_type=token
+
+https://api.instagram.com/oauth/authorize/?client_id=d3eb5b70c04b4356a146d2cf73988aff&redirect_uri=http://localhost&scope=basic&response_type=code

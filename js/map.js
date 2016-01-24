@@ -36,11 +36,12 @@ function initMap() {
 		scrollwheel: false
     });
 	directionsDisplay.setMap(map);
-
+	
     marker = new google.maps.Marker({
         position: position,
         map: map
     });
+	console.log(position);
     marker.setVisible(true);
 }
 

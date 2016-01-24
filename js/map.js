@@ -13,22 +13,41 @@
 var map;
 var marker;
 function initMap() {
-    var johnMolson = {lat: 45.495261, lng: -73.578760};
+    position= {lat: 45.495261, lng: -73.578760};;
+	directionsService = new google.maps.DirectionsService;
+	directionsDisplay = new google.maps.DirectionsRenderer;
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(pos) {
+			  var temp = {
+				lat: pos.coords.latitude,
+				lng: pos.coords.longitude
+			  };
+			position.lat = temp.lat;
+			position.lng = temp.lng;
+			showMarker();
+		});
+	}
+	else{
+		
+	}
     map = new google.maps.Map(document.getElementById('contact'), {
-        center: johnMolson,
+        center: position,
         zoom: 15,
 		scrollwheel: false
     });
+	directionsDisplay.setMap(map);
+	
+}
 
-    marker = new google.maps.Marker({
-        position: johnMolson,
+function showMarker(){
+	marker = new google.maps.Marker({
+        position: position,
         map: map
     });
     marker.setVisible(true);
 }
-
 function onPlaceChanged() {
-  var place = autocomplete.getPlace();
+  place = autocomplete.getPlace();
   if (place.geometry) {
     map.panTo(place.geometry.location);
     map.setZoom(12);
@@ -42,4 +61,20 @@ function onPlaceChanged() {
   } else {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }
+  determineRoute(directionsService, directionsDisplay);
+}
+
+
+function determineRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: position,
+    destination: place.geometry.location,
+    travelMode: google.maps.TravelMode.WALKING
+  }, function(response, status) {
+    if (status === google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    } else {
+       document.getElementById("routeInfos").innerHTML ="Sorry! No directions available.";
+    }
+  });
 }

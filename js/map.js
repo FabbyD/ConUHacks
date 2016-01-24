@@ -51,13 +51,17 @@ function onPlaceChanged() {
   if (place.geometry) {
     map.panTo(place.geometry.location);
     map.setZoom(12);
-	marker.setPosition(place.geometry.location);
 	
 	// Smooth scrolling
 	var offsets = document.getElementById('portfolio').getBoundingClientRect();
 	var top = offsets.top;
 	$('html, body').stop().animate({ scrollTop: top },500);
-			
+	
+	// Weather forecast
+	var location = place.geometry.location;
+	console.log(location.lat(), location.lng())
+	postRequest(callback, location.lat(), location.lng());
+	
   } else {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }
@@ -77,4 +81,48 @@ function determineRoute(directionsService, directionsDisplay) {
        document.getElementById("routeInfos").innerHTML ="Sorry! No directions available.";
     }
   });
+}
+
+// Change the weather values when the fetch is complete
+function callback(result)
+{
+	console.log(result);
+	array = result;		
+		
+	document.querySelector('#MonDay').innerHTML = Math.round(array.list[0].temp.day) + "°C";
+	document.querySelector('#MonNight').innerHTML = Math.round(array.list[0].temp.night) + "°C";
+	
+	document.querySelector('#TueDay').innerHTML = Math.round(array.list[1].temp.day) + "°C";
+	document.querySelector('#TueNight').innerHTML = Math.round(array.list[1].temp.night) + "°C";
+	
+	document.querySelector('#WedDay').innerHTML = Math.round(array.list[2].temp.day) + "°C";
+	document.querySelector('#WedNight').innerHTML = Math.round(array.list[2].temp.night) + "°C";
+	
+	document.querySelector('#ThuDay').innerHTML = Math.round(array.list[3].temp.day) + "°C";
+	document.querySelector('#ThuNight').innerHTML = Math.round(array.list[3].temp.night) + "°C";
+	
+	document.querySelector('#FriDay').innerHTML = Math.round(array.list[4].temp.day) + "°C";
+	document.querySelector('#FriNight').innerHTML = Math.round(array.list[4].temp.night) + "°C";
+	
+	document.querySelector('#SatDay').innerHTML = Math.round(array.list[5].temp.day) + "°C";
+	document.querySelector('#SatNight').innerHTML = Math.round(array.list[5].temp.night) + "°C";
+	
+	document.querySelector('#SunDay').innerHTML = Math.round(array.list[6].temp.day) + "°C";
+	document.querySelector('#SunNight').innerHTML = Math.round(array.list[6].temp.night) + "°C";
+}
+
+// Call the weather API
+function postRequest(callbackFct, lat, lon)
+{
+	$.ajax({
+	  	url: 'http://api.openweathermap.org/data/2.5/forecast/daily?APPID=1bbc39a35ea1c3ebe62231e0765c9e5a&cnt=7&units=metric&lat=' + lat + '&lon=' + lon,
+
+	  	success: function(response) {
+	  		callbackFct(response);
+	  	},
+
+	  	error: function(){
+	  		console.log("Errrreur")
+	  	}
+	});
 }

@@ -52,16 +52,16 @@
                 <a>Views</a>
             </li>
             <li>
-                <a><input type="checkbox" value="" checked="checked" id = "photosCheck" onclick=$("#pictures").toggle();> Photos</a>
+                <a><input type="checkbox" value="" id = "photosCheck" onclick=$("#pictures").toggle();> Photos</a>
             </li>
             <li>
-                <a><input type="checkbox" value="" checked="checked" id = "weatherCheck" onclick=$("#weather").toggle(); > Weather Forecast</a>
+                <a><input type="checkbox" value="" id = "weatherCheck" onclick=$("#weather").toggle(); > Weather Forecast</a>
             </li>
             <li>
-                <a><input type="checkbox" value="" checked="checked" id = "mapCheck" onclick=$("#contact").toggle(); > Map</a>
+                <a><input type="checkbox" value="" id = "mapCheck" onclick=$("#contact").toggle(); > Map</a>
             </li>
             <li>
-                <a><input type="checkbox" value="" checked="checked" id = "travelCheck" onclick=$("#travel").toggle(); > Travel infos</a>
+                <a><input type="checkbox" value="" id = "travelCheck" onclick=$("#travel").toggle(); > Travel infos</a>
             </li>
         </ul>
     </nav>
@@ -76,10 +76,11 @@
     </header>
 
     <!-- instagram -->
-    <section id="pictures" class="contentPart 
+    <section id="pictures" class="contentPart" style="display:none">
         <div class="container">
 		<h2 class="text-center" id="instaTitle">Your destination</h2>
 		<br></br>
+		<h4 class="text-center" id="noPictures"></h4>
 		<img id='photoTest' src=''></img>
             <div class="container">
                 <div class="row">
@@ -116,7 +117,7 @@
     </section>
 
     <!-- Weather -->
-    <section id="weather" class="contentPart bg-primary">
+    <section id="weather" class="contentPart bg-primary" style="display:none">
         <div class="container">
             <div class="row">
                 <div class="col-lg-2 text-center"></div>
@@ -176,13 +177,13 @@
 
 
     <!-- Map -->
-    <section id="contact" class="map contentPart">
+    <section id="contact" class="map contentPart" style="display:none">
         <br />
     </section>
     <div id="routeInfos" class="row text-center"></div>
 	
 	<!-- Flight information -->
-    <section id="travel" class="about">
+    <section id="travel" class="about" style="display:none">
         <div class="container">
             <div class="row text-center">
 			<h2 class="text-center">Flight information</h2>
@@ -231,7 +232,7 @@
     </section>
 
     <!-- About -->
-    <section id="about" class="contentPart bg-primary">
+    <section id="about" class="contentPart bg-primary" style="display:none">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-12">
@@ -248,7 +249,7 @@
 
     
     <!-- Footer -->
-    <footer>
+    <footer style="display:none">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">

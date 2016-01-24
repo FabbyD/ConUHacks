@@ -47,6 +47,18 @@ function showMarker(){
 function onPlaceChanged() {
   place = autocomplete.getPlace();
   if (place.geometry) {
+	$("#pictures").show();
+	$("#photosCheck").attr("checked",true);
+	$("#weather").show();
+	$("#weatherCheck").attr("checked",true);
+	$("#contact").show();
+	$("#mapCheck").attr("checked",true);
+	$("#travel").show();
+	$("#travelCheck").attr("checked",true);
+	$("#about").show();
+	$("footer").show();
+	
+	
     map.panTo(place.geometry.location);
     map.setZoom(12);
 	temporaryInfo();
@@ -110,15 +122,25 @@ function callbackDetails(place, status) {
 	 if (status == google.maps.places.PlacesServiceStatus.OK) {
 		console.log(place);
 		var photos = place.photos;
-		if (!photos) {
-			console.log("No photos available");
-			// NO PHOTOS AVAILABLE
-			return;
-		}
 		
 		var x = document.querySelectorAll(".photo");
 		for (i = 0; i < 6; i++) {
-			x[i].setAttribute('src',photos[i].getUrl({'maxWidth': 300, 'maxHeight': 300}));
+			x[i].setAttribute('src', '');
+		}
+		
+		if (!photos) {
+			// NO PHOTOS AVAILABLE
+			$("#noPictures").html("Sorry, no pictures available for this destination.");
+			return;
+		}
+		$("#noPictures").html("");
+		for (i = 0; i < 6; i++) {
+			if (photos[i]) {
+				x[i].setAttribute('src',photos[i].getUrl({'maxWidth': 300, 'maxHeight': 300}));
+			}
+			else {
+				return;
+			}
 		}
 	  }
 }

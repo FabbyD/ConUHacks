@@ -35,15 +35,6 @@ function initMap() {
         zoom: 15,
 		scrollwheel: false
     });
-	
-	var request = {
-		location: map.getCenter(),
-		radius: '500',
-		query: 'Polytechnique Montreal'
-	  };
-	  
-	var service = new google.maps.places.PlacesService(map);
-	service.textSearch(request, callbackPlacesID);
 	  
 	directionsDisplay.setMap(map);
 	
@@ -76,6 +67,16 @@ function onPlaceChanged() {
     document.getElementById('autocomplete').placeholder = 'Enter your destination';
   }
   determineRoute(directionsService, directionsDisplay);
+  
+  // Place photos
+  var request = {
+		location: place.geometry.location,
+		radius: '500',
+		query: place.name
+	  };
+	  
+	var service = new google.maps.places.PlacesService(map);
+	service.textSearch(request, callbackPlacesID);
 }
 
 
@@ -109,6 +110,7 @@ function callbackDetails(place, status) {
 		console.log(place);
 		var photos = place.photos;
 		if (!photos) {
+			// NO PHOTOS AVAILABLE
 			return;
 		}
 		$('#pictures').attr("src","");

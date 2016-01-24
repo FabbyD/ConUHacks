@@ -113,13 +113,17 @@ function callbackDetails(place, status) {
 		console.log(place);
 		var photos = place.photos;
 		if (!photos) {
+			console.log("No photos available");
 			// NO PHOTOS AVAILABLE
 			return;
 		}
-		$('#pictures').attr("src","");
-		for (i = 0; i < 4; i++) {
-			$('ul').append('<li><img src="'+photos[i].getUrl({'maxWidth': 400, 'maxHeight': 400})+'"></li>');
-		}
+		
+		$('#photoTest').attr('src',photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100}));
+		
+		//var x = document.querySelectorAll(".photo");
+		//for (i = 0; i < 6; i++) {
+		//	x[i].setAttribute('src',"photos[i].getUrl({'maxWidth': 100, 'maxHeight': 100})");
+		//}
 	  }
 }
 

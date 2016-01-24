@@ -54,6 +54,7 @@ function onPlaceChanged() {
   if (place.geometry) {
     map.panTo(place.geometry.location);
     map.setZoom(12);
+	temporaryInfo();
 	
 	// Smooth scrolling
 	var offsets = document.getElementById('weather').getBoundingClientRect();
@@ -214,7 +215,7 @@ function postRequestQpx(callbackFct, startCode, destCode)
 	$.ajax({
 	  	type: 'POST',
 	  	
-	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyDmMsdhLSm9L31s9RFyaosTNtDnOWnYqH0',
+	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyCay_06Oh2fber3S1wpvdHiSxuKuzI9rUc',
 		
 		contentType: "application/json",
 
@@ -236,10 +237,30 @@ function postRequestQpx(callbackFct, startCode, destCode)
 // QPX callback
 function qpxCallback(result)
 {
-	console.log(result);
-	document.querySelector('#flightPrice').innerHTML = result.trips.tripOption[0].saleTotal;
-	document.querySelector('#flightDuration').innerHTML = result.trips.tripOption[0].slice[0].duration + " mins";
-	document.querySelector('#flightCarrier').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.carrier;
-	document.querySelector('#flightNo').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.number;
+	if (result.trips.tripOption)
+	{
+		console.log(result);
+		document.querySelector('#flightPrice').innerHTML = result.trips.tripOption[0].saleTotal;
+		document.querySelector('#flightDuration').innerHTML = result.trips.tripOption[0].slice[0].duration + " mins";
+		document.querySelector('#flightCarrier').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.carrier;
+		document.querySelector('#flightNo').innerHTML = result.trips.tripOption[0].slice[0].segment[0].flight.number;
+	}
+	else 
+	{
+		document.querySelector('#flightPrice').innerHTML = "N/A";
+		document.querySelector('#flightDuration').innerHTML = "N/A";
+		document.querySelector('#flightCarrier').innerHTML = "N/A";
+		document.querySelector('#flightNo').innerHTML = "N/A";
+	}
+	
 }
 
+function temporaryInfo()
+{
+	document.querySelector('#startCode').innerHTML = "fetching...";
+	document.querySelector('#destCode').innerHTML = "fetching...";
+	document.querySelector('#flightPrice').innerHTML = "fetching...";
+	document.querySelector('#flightDuration').innerHTML = "fetching...";
+	document.querySelector('#flightCarrier').innerHTML = "fetching...";
+	document.querySelector('#flightNo').innerHTML = "fetching...";
+}

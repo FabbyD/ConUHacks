@@ -13,18 +13,32 @@
 var map;
 var marker;
 function initMap() {
-    johnMolson = {lat: 45.495261, lng: -73.578760};
+    position= {lat: 45.495261, lng: -73.578760};;
 	directionsService = new google.maps.DirectionsService;
 	directionsDisplay = new google.maps.DirectionsRenderer;
+	if (navigator.geolocation) {
+			console.log("ici1");
+		navigator.geolocation.getCurrentPosition(function(pos) {
+			console.log("ici2");
+			  var temp = {
+				lat: pos.coords.latitude,
+				lng: pos.coords.longitude
+			  };
+			console.log("ici3");
+			position.lat = temp.lat;
+			position.lng = temp.lng;
+		});
+			console.log("ici4");
+	}
     map = new google.maps.Map(document.getElementById('contact'), {
-        center: johnMolson,
+        center: position,
         zoom: 15,
 		scrollwheel: false
     });
 	directionsDisplay.setMap(map);
 
     marker = new google.maps.Marker({
-        position: johnMolson,
+        position: position,
         map: map
     });
     marker.setVisible(true);
@@ -51,7 +65,7 @@ function onPlaceChanged() {
 
 function determineRoute(directionsService, directionsDisplay) {
   directionsService.route({
-    origin: johnMolson,
+    origin: position,
     destination: place.geometry.location,
     travelMode: google.maps.TravelMode.WALKING
   }, function(response, status) {

@@ -53,6 +53,9 @@ function onPlaceChanged() {
 	$("#travelCheck").attr("checked",true);
 	$("#about").show();
 	$("footer").show();
+	$("#contact").show();
+	$("#mapCheck").attr("checked",true);
+	initMap();
 	
 	
     map.panTo(place.geometry.location);

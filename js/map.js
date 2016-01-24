@@ -1,6 +1,3 @@
-/**
- * Created by Fabrice on 2016-01-23.
- */
 
  $(document).ready(function() {
 	var input = document.getElementById('placeInput');

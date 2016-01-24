@@ -13,9 +13,9 @@
 var map;
 var marker;
 function initMap() {
-    var johnMolson = {lat: 45.495261, lng: -73.578760};
-	var directionsService = new google.maps.DirectionsService;
-	var directionsDisplay = new google.maps.DirectionsRenderer;
+    johnMolson = {lat: 45.495261, lng: -73.578760};
+	directionsService = new google.maps.DirectionsService;
+	directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('contact'), {
         center: johnMolson,
         zoom: 15,
@@ -31,7 +31,7 @@ function initMap() {
 }
 
 function onPlaceChanged() {
-  var place = autocomplete.getPlace();
+  place = autocomplete.getPlace();
   if (place.geometry) {
     map.panTo(place.geometry.location);
     map.setZoom(12);
@@ -52,13 +52,13 @@ function onPlaceChanged() {
 function determineRoute(directionsService, directionsDisplay) {
   directionsService.route({
     origin: johnMolson,
-    destination: place.location,
-    travelMode: google.maps.TravelMode.DRIVING
+    destination: place.geometry.location,
+    travelMode: google.maps.TravelMode.WALKING
   }, function(response, status) {
     if (status === google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
     } else {
-      window.alert('Directions request failed due to ' + status);
+       document.getElementById("routeInfos").innerHTML ="Sorry! No directions available.";
     }
   });
 }

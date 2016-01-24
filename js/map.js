@@ -53,7 +53,7 @@ function onPlaceChanged() {
     map.setZoom(12);
 	
 	// Smooth scrolling
-	var offsets = document.getElementById('portfolio').getBoundingClientRect();
+	var offsets = document.getElementById('weather').getBoundingClientRect();
 	var top = offsets.top;
 	$('html, body').stop().animate({ scrollTop: top },500);
 	

@@ -17,19 +17,15 @@ function initMap() {
 	directionsService = new google.maps.DirectionsService;
 	directionsDisplay = new google.maps.DirectionsRenderer;
 	if (navigator.geolocation) {
-			console.log("ici1");
 		navigator.geolocation.getCurrentPosition(function(pos) {
-			console.log("ici2");
 			  var temp = {
 				lat: pos.coords.latitude,
 				lng: pos.coords.longitude
 			  };
-			console.log("ici3");
 			position.lat = temp.lat;
 			position.lng = temp.lng;
 			showMarker();
 		});
-			console.log("ici4");
 	}
 	else{
 		
@@ -48,7 +44,6 @@ function showMarker(){
         position: position,
         map: map
     });
-	console.log(position);
     marker.setVisible(true);
 }
 function onPlaceChanged() {

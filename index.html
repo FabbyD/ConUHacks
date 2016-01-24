@@ -38,6 +38,10 @@
 	<script src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyDmMsdhLSm9L31s9RFyaosTNtDnOWnYqH0&libraries=places&callback=initMap"
            async defer></script>
     <script src="js/map.js"></script>
+	
+	<!-- Instafeed -->
+	<script type="text/javascript" src="js/instafeed.min.js"></script>
+	<script type="text/javascript" src="js/instagram.js"></script>
 
 </head>
 
@@ -83,10 +87,7 @@
         <div class="container">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2>Pinterest or instagram !</h2>
-                        <p class="lead">This theme features some wonderful photography courtesy of <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a>.</p>
-                    </div>
+                    <div id="instafeed"></div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -244,7 +245,7 @@
         });
     });
     </script>
-   
+   <script>callInsta();</script>
 </body>
 
 </html>

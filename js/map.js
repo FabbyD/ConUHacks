@@ -4,7 +4,9 @@
 
  $(document).ready(function() {
 	var input = document.getElementById('placeInput');
-	autocomplete = new google.maps.places.Autocomplete(input); 
+	autocomplete = new google.maps.places.Autocomplete(input, {
+		types: ['(cities)']
+	}); 
 	
 	autocomplete.addListener('place_changed', onPlaceChanged);
 	
@@ -192,6 +194,7 @@ function postRequestSita(callbackFct, lat, lon)
 // Change airports codes when the fetch is complete
 function sitaCallback(result)
 {
+	document.querySelector('#startCode').innerHTML = "YUL";
 	document.querySelector('#destCode').innerHTML = result.airports[0].code;
 	console.log(result.airports[0].code);
 	postRequestQpx(qpxCallback, "AAA", "AAA");

@@ -35,6 +35,16 @@ function initMap() {
         zoom: 15,
 		scrollwheel: false
     });
+	
+	var request = {
+		location: map.getCenter(),
+		radius: '500',
+		query: 'Polytechnique Montreal'
+	  };
+	  
+	var service = new google.maps.places.PlacesService(map);
+	service.textSearch(request, callbackPlacesID);
+	  
 	directionsDisplay.setMap(map);
 	
 }
@@ -81,6 +91,31 @@ function determineRoute(directionsService, directionsDisplay) {
        document.getElementById("routeInfos").innerHTML ="Sorry! No directions available.";
     }
   });
+}
+
+function callbackPlacesID(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    console.log(results[0].place_id);
+	var request = {
+	  placeId: results[0].place_id
+	};
+	service = new google.maps.places.PlacesService(map);
+	service.getDetails(request, callbackDetails);
+  }
+}
+
+function callbackDetails(place, status) {
+	 if (status == google.maps.places.PlacesServiceStatus.OK) {
+		console.log(place);
+		var photos = place.photos;
+		if (!photos) {
+			return;
+		}
+		$('#pictures').attr("src","");
+		for (i = 0; i < 4; i++) {
+			$('ul').append('<li><img src="'+photos[i].getUrl({'maxWidth': 400, 'maxHeight': 400})+'"></li>');
+		}
+	  }
 }
 
 // Change the weather values when the fetch is complete

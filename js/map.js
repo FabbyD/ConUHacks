@@ -52,7 +52,7 @@ function onPlaceChanged() {
 	temporaryInfo();
 	
 	// Smooth scrolling
-	var offsets = document.getElementById('weather').getBoundingClientRect();
+	var offsets = document.getElementById('pictures').getBoundingClientRect();
 	var top = offsets.top;
 	$('html, body').stop().animate({ scrollTop: top },500);
 	
@@ -208,7 +208,7 @@ function postRequestQpx(callbackFct, startCode, destCode)
 	$.ajax({
 	  	type: 'POST',
 	  	
-	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyCay_06Oh2fber3S1wpvdHiSxuKuzI9rUc',
+	  	url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyA1rgCGVQtLfQMPVmpzyOAf9E-8E3ilmJM',
 		
 		contentType: "application/json",
 
@@ -250,6 +250,7 @@ function qpxCallback(result)
 
 function temporaryInfo()
 {
+	$('#instaTitle').html(place.name);
 	document.querySelector('#startCode').innerHTML = "fetching...";
 	document.querySelector('#destCode').innerHTML = "fetching...";
 	document.querySelector('#flightPrice').innerHTML = "fetching...";

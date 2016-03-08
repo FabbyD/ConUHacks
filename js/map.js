@@ -241,12 +241,17 @@ function sitaCallback(result)
 // Call the QPX API
 function postRequestQpx(callbackFct, startCode, destCode)
 {
-	
-	var str = '{"request": {"passengers": {"adultCount": 1},"slice": [{"origin": "BOS","destination": "LAX","date": "2016-01-30"}]}}';
+	var date = new Date(); // Get today's date.
+	date.setDate(date.getDate() + 7); // Add 7 days to get informations one week from now.
+	date.setMonth(date.getMonth() + 1); // Correct the month (we want 1 to 12).
+	var formattedDate = date.getFullYear() + '-' + ('0' + date.getMonth()).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+	var str = '{"request": {"passengers": {"adultCount": 1},"slice": [{"origin": "BOS","destination": "LAX","date": "' + formattedDate + '"}]}}';
 	var json = JSON.parse(str);
 	
 	json.request.slice[0].origin = "YUL";
 	json.request.slice[0].destination = document.querySelector('#destCode').innerHTML;
+	
+	console.log(json);
 	
 	$.ajax({
 	  	type: 'POST',
@@ -261,7 +266,6 @@ function postRequestQpx(callbackFct, startCode, destCode)
 
 	  	success: function(response) {
 	  		callbackFct(response);
-			console.log(json);
 	  	},
 
 	  	error: function(response){

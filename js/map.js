@@ -22,6 +22,14 @@
 	$( "#scrollUp" ).click(function() {
 		$('html, body').stop().animate({ scrollTop: top },500);
 	});
+	
+	// Weather week days
+	var weekday = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+	var date = new Date();
+	var day = date.getDay() + 1; // Forecast starts tomorrow.
+	for (i = 0; i < 7; i++){
+		$('#day' + i + 'Title').html(weekday[(day + i) % 7]);
+	}
 });
  
 var map;
@@ -171,27 +179,11 @@ function callback(result)
 {
 	console.log(result);
 	array = result;		
-		
-	document.querySelector('#MonDay').innerHTML = Math.round(array.list[0].temp.day) + "°C";
-	document.querySelector('#MonNight').innerHTML = Math.round(array.list[0].temp.night) + "°C";
 	
-	document.querySelector('#TueDay').innerHTML = Math.round(array.list[1].temp.day) + "°C";
-	document.querySelector('#TueNight').innerHTML = Math.round(array.list[1].temp.night) + "°C";
-	
-	document.querySelector('#WedDay').innerHTML = Math.round(array.list[2].temp.day) + "°C";
-	document.querySelector('#WedNight').innerHTML = Math.round(array.list[2].temp.night) + "°C";
-	
-	document.querySelector('#ThuDay').innerHTML = Math.round(array.list[3].temp.day) + "°C";
-	document.querySelector('#ThuNight').innerHTML = Math.round(array.list[3].temp.night) + "°C";
-	
-	document.querySelector('#FriDay').innerHTML = Math.round(array.list[4].temp.day) + "°C";
-	document.querySelector('#FriNight').innerHTML = Math.round(array.list[4].temp.night) + "°C";
-	
-	document.querySelector('#SatDay').innerHTML = Math.round(array.list[5].temp.day) + "°C";
-	document.querySelector('#SatNight').innerHTML = Math.round(array.list[5].temp.night) + "°C";
-	
-	document.querySelector('#SunDay').innerHTML = Math.round(array.list[6].temp.day) + "°C";
-	document.querySelector('#SunNight').innerHTML = Math.round(array.list[6].temp.night) + "°C";
+	for (i = 0; i < 7; i++){
+		document.querySelector('#day' + i).innerHTML = Math.round(array.list[i].temp.day) + "°C";
+		document.querySelector('#night' + i).innerHTML = Math.round(array.list[i].temp.night) + "°C";
+	}
 }
 
 // Call the weather API
